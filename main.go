@@ -5,23 +5,17 @@ import (
 	"html"
 	"log"
 	"net/http"
-	"os/exec"
 )
 
 func main() {
-	httpServer()
-}
-func testCheckJava() {
-	cmd := exec.Command("java", "--version")
-	cmd.Dir = ""
-	out, err := cmd.CombinedOutput()
-	if err != nil {
-		log.Fatal("wtf")
-	}
-	fmt.Printf("combined out:\n%s\n", string(out))
+	//httpServer()
+
+	CloneByTag()
 }
 
 func httpServer() {
+	http.HandleFunc("/status", CheckTaskStatus)
+
 	http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
 	})
