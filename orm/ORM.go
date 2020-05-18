@@ -42,6 +42,7 @@ func (s *Session) RawQuery(sql string, args ...interface{}) *Session {
 	return s
 }
 
+//最终执行结果
 func (s *Session) Exec() (result sql.Result, err error) {
 	defer s.reset()
 	log.Info(s.sql.String(), s.sqlArgs)
@@ -51,6 +52,7 @@ func (s *Session) Exec() (result sql.Result, err error) {
 	return
 }
 
+//新建数据库
 func NewEngine(driver, source string) (e *Engine, err error) {
 	db, err := sql.Open(driver, source)
 	PanicIf(err)
@@ -61,6 +63,12 @@ func NewEngine(driver, source string) (e *Engine, err error) {
 	return
 }
 
+//同步数据表结构
+func (e *Engine) SyncSchema() {
+
+}
+
+//关闭数据库
 func (e *Engine) Close() {
 	if err := e.db.Close(); err != nil {
 		log.Error("数据库关闭失败")
@@ -68,13 +76,12 @@ func (e *Engine) Close() {
 	log.Info("数据库关闭了")
 }
 
+//数据库开始会话
 func (e *Engine) NewSession() *Session {
 	return New(e.db)
 }
-func CreateTable() {
 
-}
-
+//错误处理日志
 func PanicIf(err error) {
 	if err != nil {
 		log.Error(err)
