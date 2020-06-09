@@ -7,11 +7,10 @@ import (
 	"net/http"
 )
 
-func main() {
-	//httpServer()
-
-	CloneByTag()
-}
+//func main() {
+//	//httpServer()
+//	CloneByTag()
+//}
 
 func httpServer() {
 	http.HandleFunc("/status", CheckTaskStatus)
