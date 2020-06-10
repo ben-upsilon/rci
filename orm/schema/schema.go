@@ -2,6 +2,7 @@ package schema
 
 import (
 	"go/ast"
+	"rci/orm"
 	"rci/orm/dialect"
 	"reflect"
 )
@@ -13,10 +14,11 @@ type Field struct {
 	Tag  string
 }
 
+//对应构建表结构
 type Schema struct {
-	Model    interface{}
-	Name     string
-	FieldMap map[string]*Field
+	Model    interface{}       //模型
+	Name     string            //表名
+	FieldMap map[string]*Field //字段
 }
 
 func Parse(target interface{}, d dialect.Dialect) *Schema {

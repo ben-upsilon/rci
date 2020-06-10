@@ -58,6 +58,11 @@ func (s *Session) Exec() (result sql.Result, err error) {
 	return
 }
 
+func (s *Session) Model(v interface{}) *Session {
+
+	return s
+}
+
 //新建数据库
 func NewEngine(driver, source string) (e *Engine, err error) {
 	db, err := sql.Open(driver, source)
